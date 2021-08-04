@@ -1,35 +1,96 @@
-# Regex README
+# Regex Vs code Extension
 
-This is the README for your extension "Regex". After writing up a brief description, we recommend including the following sections.
+Regex for javascript,typescript,angular and react. With Bootstrap forms and formgroups
 
-## Features
+<p align="center">
+  <img width="600" height="400" src="icon.png">
+</p>
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## ***Demo***
+ 
+![](regex.gif)
+### Snippets
 
-For example if there is an image subfolder under your extension project workspace:
+The following table shows all the 50+ code snippets included within this
+extension
 
-\!\[feature X\]\(images/feature-x.png\)
+# Snippets
+Trigger | Description
+--- | ---
+!vemail | Email Address Validation
+!vhexcol |  Hexadecimal Color Validation   
+!vpass | Password Validation
+!visbn | ISBN Number Validation              
+!vipv4 | IPV4 Address Validation
+!vipv6 | IPV6 Address Validation
+!vmmddyy | Date Validation In mm/dd/yy format
+!vmonddyyyy | Date Validation In mon/dd/yyyy format
+!vmonth | Month Validation
+!vextprice | Extract Price Value from any string
+!vparehead | Parse an Email Header to retrieve "To" address 
+!vfbllink | Check if the given Facebook Profile Link is valid 
+!vcc | Credit Card Validation  
+!vusername | Username Validation with minimum and maximum characters 
+!exturl | Extract URLs from a string  
+!getiever | Get the current Internet Explorer Version being used
+!vimage| Validate image filenames
+!vcityabbr | Validate City Names
+!vusphone | US Phone Number Validation 
+!vssn | Social Security Number Validation 
+!vhtmlcont | Verify if the given string contains content between the provided html tags
+!vhtmltag | Validates if the given string has either a opening or closing HTML tag 
+!vtwitter  | Twitter Username Validation                                                                                                                                       
+!vurl | URL Validation 
+!vgooglesyn | URL Validation
+!vextcssmedia | Extract properties and values from CSS Media Queries 
+!vexthtmlcomms | Strip all comments from a HTML Code Block                                                                                                
+!vexthtmlcomms  | Strip all comments from a HTML Code Block                                                                                                                  !vextcss | Extract Individual CSS Properties from the given Code Block                                                          
+!vextytid   | Extract Video ID from a valid Youtube Video Link
+!vextimgsrc | Extract image source links from HTML Image Tags  
+!vbase64 | Base64 String Validation
+!vsepthousand | Seperates the digits in the string to thousand with commas
+!vchars | Validate if the the string contains atleast one occurrence of the Character to be searched
+!vspaces | Convert multiple spaces to single spaces between each word in a string
+!vextsqrbracks | Extract Square Brackets and the content between them  
+!valpnum | Non-Alphanumeric Characters Validation    
+!vextlogs   | Extract native Javascript console and AngularJS                                            
+!vextbrackscont | Extract all brackets and the content between them  
+!vaddlinktag| Adds Link Tags to all the strings that start with http or https
+!vfindocurrences  | Provides a function to calculate the number of times the provided character(s) 
+!vuuidv1  | UUID v1 Validation     
+!vuuidv2 | UUID v2 Validation 
+!vuuidv3| UUID v3 Validation 
+!vuuidv4 | UUID v4 Validation
+!vuuidv5  | UUID v5 Validation                                                                                                                                                 
+# Form Snippets
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Trigger | Description
+--- | ---
+!form-blank |
+!form-fullname |
+!form-middlename |
+!form-last-name |
+!form-email |
+!form-phone |
+!form-street-address |
+!form-street-1 |
+!form-street-2 |
+!form-street-3 |
+!form-city |
+!form-state |
+!form-country |
+!form-county |
+!form-id |
+!form-major |
+!form-gpa |
+!form-signature |
+!form-date |
+!form-time |
+!form-select |
+!form-file-upload |
+!form-amount |
+!form-radio-button |
+!form-checkbox |
 
 ## Release Notes
 
