@@ -1,9 +1,1 @@
-# Change Log
-
-All notable changes to the "Regex" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+# Changelog\n\nAll notable changes to the \"Regex Snippets Plus\" extension will be documented in this file.\n\n## [1.0.0] - 2024-01-01\n\n### 🎉 Major Release - Complete Overhaul\n\n#### Added\n- ✨ **100+ Comprehensive Regex Patterns**\n- 🌐 **Multi-Language Support** - Python, PHP, Java, C#, Go, Rust\n- 🧪 **Interactive Regex Tester** \n- 📖 **Pattern Explanation System**\n- 🔧 **Regex Generator**\n- 🎨 **Advanced Bootstrap 5 Forms**\n- ⚙️ **Extension Settings**\n- 📱 **Modern Validation Patterns** (JWT, crypto, social media)\n\n#### Enhanced\n- 🚀 **Improved Performance**\n- 📚 **Comprehensive Documentation** \n- 🎯 **Better Organization**\n- 🔒 **Enhanced Security Patterns**\n- 📋 **Improved Form Components**\n\n#### Fixed\n- 🐛 **JSON Formatting Issues**\n- 🐛 **Pattern Accuracy**\n- 🐛 **Extension Loading**\n- 🐛 **Documentation**\n\n## [0.0.1] - 2023-01-01\n\n### Initial Release\n- Basic regex snippets for JavaScript/TypeScript\n- Simple Bootstrap form components\n- 50+ validation patterns"

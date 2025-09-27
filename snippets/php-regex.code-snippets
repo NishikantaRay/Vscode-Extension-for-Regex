@@ -1,0 +1,52 @@
+{
+    "PHP Email Validation": {
+        "prefix": "!php-email",
+        "body": "<?php\n$email = '${1:test@example.com}';\n\nif (filter_var($email, FILTER_VALIDATE_EMAIL)) {\n    echo \"Valid email address\";\n} else {\n    echo \"Invalid email address\";\n}\n\n// Alternative with preg_match\nif (preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/', $email)) {\n    echo \"Valid email (regex)\";\n}\n?>",
+        "description": "PHP email validation with filter_var and regex"
+    },
+    "PHP URL Validation": {
+        "prefix": "!php-url",
+        "body": "<?php\n$url = '${1:https://example.com}';\n\nif (filter_var($url, FILTER_VALIDATE_URL)) {\n    echo \"Valid URL\";\n} else {\n    echo \"Invalid URL\";\n}\n\n// Alternative with preg_match\nif (preg_match('/^https?:\\/\\/[^\\s$.?#].[^\\s]*$/i', $url)) {\n    echo \"Valid URL (regex)\";\n}\n?>",
+        "description": "PHP URL validation"
+    },
+    "PHP Password Validation": {
+        "prefix": "!php-password",
+        "body": "<?php\nfunction validatePassword($password) {\n    // At least 8 characters, 1 uppercase, 1 lowercase, 1 digit, 1 special char\n    $pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/';\n    return preg_match($pattern, $password);\n}\n\n$password = '${1:MyPassword123!}';\n\nif (validatePassword($password)) {\n    echo \"Strong password\";\n} else {\n    echo \"Weak password\";\n}\n?>",
+        "description": "PHP password strength validation"
+    },
+    "PHP Extract URLs": {
+        "prefix": "!php-extract-urls",
+        "body": "<?php\n$text = '${1:Visit https://example.com and http://google.com}';\n\n$pattern = '/https?:\\/\\/[^\\s$.?#].[^\\s]*/i';\npreg_match_all($pattern, $text, $matches);\n\necho \"Found URLs:\\n\";\nforeach ($matches[0] as $url) {\n    echo $url . \"\\n\";\n}\n?>",
+        "description": "Extract all URLs from text"
+    },
+    "PHP Phone Number Validation": {
+        "prefix": "!php-phone",
+        "body": "<?php\nfunction validatePhoneNumber($phone) {\n    // Remove all non-digit characters\n    $cleaned = preg_replace('/[^\\d]/', '', $phone);\n    \n    // Check if it's 10-15 digits\n    if (preg_match('/^\\d{10,15}$/', $cleaned)) {\n        return true;\n    }\n    \n    // Check US format\n    if (preg_match('/^\\+?1?[2-9]\\d{2}[2-9]\\d{2}\\d{4}$/', $cleaned)) {\n        return true;\n    }\n    \n    return false;\n}\n\n$phone = '${1:(555) 123-4567}';\n\nif (validatePhoneNumber($phone)) {\n    echo \"Valid phone number\";\n} else {\n    echo \"Invalid phone number\";\n}\n?>",
+        "description": "PHP phone number validation"
+    },
+    "PHP Extract Email Addresses": {
+        "prefix": "!php-extract-emails",
+        "body": "<?php\n$text = '${1:Contact support@example.com or sales@company.org}';\n\n$pattern = '/\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b/';\npreg_match_all($pattern, $text, $matches);\n\necho \"Found emails:\\n\";\nforeach ($matches[0] as $email) {\n    echo $email . \"\\n\";\n}\n?>",
+        "description": "Extract all email addresses from text"
+    },
+    "PHP Clean Text": {
+        "prefix": "!php-clean-text",
+        "body": "<?php\nfunction cleanText($text) {\n    // Remove HTML tags\n    $text = strip_tags($text);\n    \n    // Remove special characters except letters, numbers, and spaces\n    $text = preg_replace('/[^a-zA-Z0-9\\s]/', '', $text);\n    \n    // Replace multiple spaces with single space\n    $text = preg_replace('/\\s+/', ' ', $text);\n    \n    // Trim whitespace\n    return trim($text);\n}\n\n$text = '${1:<p>Your text with @#$ special chars!!!</p>}';\n$cleaned = cleanText($text);\n\necho \"Original: \" . $text . \"\\n\";\necho \"Cleaned: \" . $cleaned . \"\\n\";\n?>",
+        "description": "Clean text by removing HTML and special characters"
+    },
+    "PHP Validate Date": {
+        "prefix": "!php-date",
+        "body": "<?php\nfunction validateDate($date, $format = 'Y-m-d') {\n    $dateTime = DateTime::createFromFormat($format, $date);\n    return $dateTime && $dateTime->format($format) === $date;\n}\n\n// Alternative with regex for common formats\nfunction validateDateRegex($date) {\n    $patterns = [\n        'YYYY-MM-DD' => '/^\\d{4}-\\d{2}-\\d{2}$/',\n        'DD/MM/YYYY' => '/^\\d{2}\\/\\d{2}\\/\\d{4}$/',\n        'MM-DD-YYYY' => '/^\\d{2}-\\d{2}-\\d{4}$/'\n    ];\n    \n    foreach ($patterns as $format => $pattern) {\n        if (preg_match($pattern, $date)) {\n            return $format;\n        }\n    }\n    return false;\n}\n\n$date = '${1:2023-12-25}';\n\nif (validateDate($date)) {\n    echo \"Valid date format\";\n} else {\n    echo \"Invalid date format\";\n}\n?>",
+        "description": "PHP date format validation"
+    },
+    "PHP Extract Hashtags": {
+        "prefix": "!php-hashtags",
+        "body": "<?php\n$text = '${1:Check out this #awesome #php #regex tutorial!}';\n\n$pattern = '/#\\w+/';\npreg_match_all($pattern, $text, $matches);\n\necho \"Found hashtags:\\n\";\nforeach ($matches[0] as $hashtag) {\n    echo $hashtag . \"\\n\";\n}\n?>",
+        "description": "Extract hashtags from text"
+    },
+    "PHP Validate Credit Card": {
+        "prefix": "!php-credit-card",
+        "body": "<?php\nfunction validateCreditCard($cardNumber) {\n    // Remove spaces and dashes\n    $cardNumber = preg_replace('/[\\s-]/', '', $cardNumber);\n    \n    // Check if it's all digits and correct length\n    if (!preg_match('/^\\d{13,19}$/', $cardNumber)) {\n        return false;\n    }\n    \n    // Luhn algorithm\n    $sum = 0;\n    $alternate = false;\n    \n    for ($i = strlen($cardNumber) - 1; $i >= 0; $i--) {\n        $digit = intval($cardNumber[$i]);\n        \n        if ($alternate) {\n            $digit *= 2;\n            if ($digit > 9) {\n                $digit = ($digit % 10) + 1;\n            }\n        }\n        \n        $sum += $digit;\n        $alternate = !$alternate;\n    }\n    \n    return ($sum % 10 === 0);\n}\n\n$card = '${1:4532-1234-5678-9012}';\n\nif (validateCreditCard($card)) {\n    echo \"Valid credit card\";\n} else {\n    echo \"Invalid credit card\";\n}\n?>",
+        "description": "Validate credit card number with Luhn algorithm"
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "Python Email Validation": {
+        "prefix": "!py-email",
+        "body": "import re\n\nemail_pattern = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')\nif email_pattern.match('${1:email}'):\n    print('Valid email')\nelse:\n    print('Invalid email')",
+        "description": "Python email validation with re module"
+    },
+    "Python Phone Number Validation": {
+        "prefix": "!py-phone",
+        "body": "import re\n\nphone_pattern = re.compile(r'^\\+?1?\\d{9,15}$')\nif phone_pattern.match('${1:phone_number}'):\n    print('Valid phone number')\nelse:\n    print('Invalid phone number')",
+        "description": "Python phone number validation"
+    },
+    "Python URL Validation": {
+        "prefix": "!py-url",
+        "body": "import re\n\nurl_pattern = re.compile(\n    r'^https?://'  # http:// or https://\n    r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\\.)+'  # domain...\n    r'(?:[A-Z]{2,6}\\.?|[A-Z0-9-]{2,}\\.?)|'  # host...\n    r'localhost|'  # localhost...\n    r'\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})'  # ...or ip\n    r'(?::\\d+)?'  # optional port\n    r'(?:/?|[/?]\\S+)$', re.IGNORECASE)\n\nif url_pattern.match('${1:url}'):\n    print('Valid URL')\nelse:\n    print('Invalid URL')",
+        "description": "Python URL validation with comprehensive pattern"
+    },
+    "Python Password Strength Check": {
+        "prefix": "!py-password",
+        "body": "import re\n\ndef check_password_strength(password):\n    # At least 8 characters, 1 uppercase, 1 lowercase, 1 digit, 1 special char\n    pattern = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')\n    return bool(pattern.match(password))\n\npassword = '${1:password}'\nif check_password_strength(password):\n    print('Strong password')\nelse:\n    print('Weak password')",
+        "description": "Python password strength validation"
+    },
+    "Python Extract All URLs": {
+        "prefix": "!py-extract-urls",
+        "body": "import re\n\ntext = '''${1:Your text here}'''\n\nurl_pattern = re.compile(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')\nurls = url_pattern.findall(text)\n\nfor url in urls:\n    print(url)",
+        "description": "Extract all URLs from text using Python"
+    },
+    "Python Date Format Validation": {
+        "prefix": "!py-date",
+        "body": "import re\nfrom datetime import datetime\n\ndef validate_date(date_string, format_pattern):\n    # Common formats: YYYY-MM-DD, DD/MM/YYYY, MM-DD-YYYY\n    patterns = {\n        'YYYY-MM-DD': r'^\\d{4}-\\d{2}-\\d{2}$',\n        'DD/MM/YYYY': r'^\\d{2}/\\d{2}/\\d{4}$',\n        'MM-DD-YYYY': r'^\\d{2}-\\d{2}-\\d{4}$'\n    }\n    \n    if format_pattern in patterns:\n        return bool(re.match(patterns[format_pattern], date_string))\n    return False\n\ndate_str = '${1:2023-12-25}'\nif validate_date(date_str, '${2:YYYY-MM-DD}'):\n    print('Valid date format')\nelse:\n    print('Invalid date format')",
+        "description": "Python date format validation"
+    },
+    "Python Clean Text (Remove Special Chars)": {
+        "prefix": "!py-clean-text",
+        "body": "import re\n\ndef clean_text(text):\n    # Remove special characters and extra whitespace\n    cleaned = re.sub(r'[^a-zA-Z0-9\\s]', '', text)\n    cleaned = re.sub(r'\\s+', ' ', cleaned).strip()\n    return cleaned\n\ntext = '''${1:Your text with @#$ special chars!!!}'''\ncleaned_text = clean_text(text)\nprint(f'Original: {text}')\nprint(f'Cleaned: {cleaned_text}')",
+        "description": "Clean text by removing special characters"
+    },
+    "Python Extract Hashtags": {
+        "prefix": "!py-hashtags",
+        "body": "import re\n\ntext = '''${1:Check out this #awesome #python #regex tutorial!}'''\n\nhashtag_pattern = re.compile(r'#\\w+')\nhashtags = hashtag_pattern.findall(text)\n\nprint('Found hashtags:')\nfor tag in hashtags:\n    print(tag)",
+        "description": "Extract hashtags from text"
+    },
+    "Python Extract Email Addresses": {
+        "prefix": "!py-extract-emails",
+        "body": "import re\n\ntext = '''${1:Contact us at support@example.com or sales@company.org}'''\n\nemail_pattern = re.compile(r'\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b')\nemails = email_pattern.findall(text)\n\nprint('Found emails:')\nfor email in emails:\n    print(email)",
+        "description": "Extract all email addresses from text"
+    },
+    "Python Validate Credit Card": {
+        "prefix": "!py-credit-card",
+        "body": "import re\n\ndef validate_credit_card(card_number):\n    # Remove spaces and dashes\n    card_number = re.sub(r'[\\s-]', '', card_number)\n    \n    # Check if it's all digits and correct length\n    if not re.match(r'^\\d{13,19}$', card_number):\n        return False\n    \n    # Luhn algorithm\n    def luhn_check(card_num):\n        digits = [int(d) for d in card_num]\n        for i in range(len(digits) - 2, -1, -2):\n            digits[i] *= 2\n            if digits[i] > 9:\n                digits[i] -= 9\n        return sum(digits) % 10 == 0\n    \n    return luhn_check(card_number)\n\ncard = '${1:4532-1234-5678-9012}'\nif validate_credit_card(card):\n    print('Valid credit card')\nelse:\n    print('Invalid credit card')",
+        "description": "Validate credit card number with Luhn algorithm"
+    }
+}

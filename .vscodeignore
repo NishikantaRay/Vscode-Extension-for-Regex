@@ -1,4 +1,1 @@
-.vscode/**
-.vscode-test/**
-.gitignore
-vsc-extension-quickstart.md
+.vscode/**\n.vscode-test/**\nout/test/**\nout/**/*.map\nsrc/**\n.gitignore\ntsconfig.json\nvsc-extension-quickstart.md\ntslint.json\n**/*.ts\n**/*.map\n.nyc_output\ncoverage\n**/.eslintrc.json\nnode_modules/\n*.vsix\n.DS_Store\n*.log\nnpm-debug.log*\nyarn-debug.log*\nyarn-error.log*\ntest/**\n**/*.test.js\n**/*.test.ts\n.env\n.env.local\n.env.development.local\n.env.test.local\n.env.production.local\n"

@@ -1,21 +1,127 @@
 {
   "name": "regex",
-  "displayName": "Regex-snippets",
-  "description": "Regex for javascript,typescript,angular and react.With Bootstrap forms and formgroups",
-  "version": "0.0.1",
+  "description": "🔥 Ultimate regex snippets collection with 100+ patterns, Bootstrap forms, validation utilities, and regex testing tools for JavaScript, TypeScript, Python, PHP, and more!",
+  "version": "1.0.0",
   "publisher": "Nishikanta12",
   "engines": {
-    "vscode": "^1.58.0"
+    "vscode": "^1.74.0"
   },
   "categories": [
-    "Snippets"
+    "Snippets",
+    "Other",
+    "Formatters",
+    "Linters"
+  ],
+  "keywords": [
+    "regex",
+    "regular expressions",
+    "validation",
+    "snippets",
+    "javascript",
+    "typescript",
+    "python",
+    "php",
+    "bootstrap",
+    "forms",
+    "email validation",
+    "url validation",
+    "phone validation",
+    "pattern matching",
+    "text processing"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/NishikantaRay/Vscode-Extension-for-Regex"
-},
-"icon": "icon.png",
+  },
+  "bugs": {
+    "url": "https://github.com/NishikantaRay/Vscode-Extension-for-Regex/issues"
+  },
+  "homepage": "https://github.com/NishikantaRay/Vscode-Extension-for-Regex#readme",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onCommand:regex-snippets-plus.testRegex",
+    "onCommand:regex-snippets-plus.explainRegex",
+    "onCommand:regex-snippets-plus.generateRegex"
+  ],
   "contributes": {
+    "commands": [
+      {
+        "command": "regex-snippets-plus.testRegex",
+        "title": "Test Regex Pattern",
+        "category": "Regex Snippets Plus"
+      },
+      {
+        "command": "regex-snippets-plus.explainRegex",
+        "title": "Explain Regex Pattern",
+        "category": "Regex Snippets Plus"
+      },
+      {
+        "command": "regex-snippets-plus.generateRegex",
+        "title": "Generate Regex from Examples",
+        "category": "Regex Snippets Plus"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorTextFocus",
+          "command": "regex-snippets-plus.testRegex",
+          "group": "regex@1"
+        },
+        {
+          "when": "editorTextFocus",
+          "command": "regex-snippets-plus.explainRegex",
+          "group": "regex@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Regex Snippets Plus",
+      "properties": {
+        "regexSnippetsPlus.enableAutoComplete": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable auto-completion for regex patterns"
+        },
+        "regexSnippetsPlus.showExplanations": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show detailed explanations in snippet descriptions"
+        },
+        "regexSnippetsPlus.preferredRegexFlavor": {
+          "type": "string",
+          "enum": [
+            "javascript",
+            "python",
+            "php",
+            "java",
+            "dotnet"
+          ],
+          "default": "javascript",
+          "description": "Preferred regex flavor for snippets"
+        },
+        "regexSnippetsPlus.includeProgrammingLanguages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "javascript",
+            "typescript",
+            "python",
+            "php",
+            "java",
+            "csharp"
+          ],
+          "description": "Programming languages to include regex snippets for"
+        }
+      }
+    },
     "snippets": [
       {
         "language": "javascript",
@@ -30,7 +136,7 @@
         "path": "./snippets/snippets.code-snippets"
       },
       {
-        "language": "javascriptangular",
+        "language": "typescriptreact",
         "path": "./snippets/snippets.code-snippets"
       },
       {
@@ -42,13 +148,51 @@
         "path": "./snippets/snippets.code-snippets"
       },
       {
+        "language": "python",
+        "path": "./snippets/python-regex.code-snippets"
+      },
+      {
+        "language": "php",
+        "path": "./snippets/php-regex.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java-regex.code-snippets"
+      },
+      {
+        "language": "csharp",
+        "path": "./snippets/csharp-regex.code-snippets"
+      },
+      {
+        "language": "go",
+        "path": "./snippets/go-regex.code-snippets"
+      },
+      {
+        "language": "rust",
+        "path": "./snippets/rust-regex.code-snippets"
+      },
+      {
         "language": "html",
         "path": "./snippets/form.code-snippets"
       },
       {
         "language": "html",
         "path": "./snippets/formsgroup.code-snippets"
+      },
+      {
+        "language": "html",
+        "path": "./snippets/advanced-forms.code-snippets"
       }
     ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^14.18.63",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^4.9.5"
   }
 }
