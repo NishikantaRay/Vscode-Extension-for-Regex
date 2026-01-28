@@ -58,9 +58,107 @@ function activate(context) {
         const panel = vscode.window.createWebviewPanel('regexExplainer', 'Regex Pattern Explanation', vscode.ViewColumn.Beside, { enableScripts: true });
         panel.webview.html = getRegexExplanationWebviewContent(selectedText, explanation);
     });
-    context.subscriptions.push(testRegexCommand, explainRegexCommand);
+    // Register generate regex command
+    let generateRegexCommand = vscode.commands.registerCommand('regex-snippets-plus.generateRegex', async () => {
+        const examples = await vscode.window.showInputBox({
+            prompt: 'Enter example strings (comma-separated) to generate a regex pattern',
+            placeHolder: 'test@example.com, user@domain.org, admin@site.net',
+            validateInput: (value) => {
+                if (!value || value.trim().length === 0) {
+                    return 'Please enter at least one example';
+                }
+                return null;
+            }
+        });
+        if (!examples) {
+            return;
+        }
+        const exampleList = examples.split(',').map(s => s.trim()).filter(s => s.length > 0);
+        if (exampleList.length === 0) {
+            vscode.window.showErrorMessage('No valid examples provided');
+            return;
+        }
+        const generatedPattern = generateRegexFromExamples(exampleList);
+        const panel = vscode.window.createWebviewPanel('regexGenerator', 'Generated Regex Pattern', vscode.ViewColumn.Beside, { enableScripts: true });
+        panel.webview.html = getRegexGenerationWebviewContent(exampleList, generatedPattern);
+    });
+    context.subscriptions.push(testRegexCommand, explainRegexCommand, generateRegexCommand);
 }
 exports.activate = activate;
+function generateRegexFromExamples(examples) {
+    // Basic regex generation logic - analyze common patterns
+    // This is a simplified implementation
+    // Check if all examples are email-like
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (examples.every(ex => emailPattern.test(ex))) {
+        return '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
+    }
+    // Check if all examples are URLs
+    const urlPattern = /^https?:\/\//i;
+    if (examples.every(ex => urlPattern.test(ex))) {
+        return '^https?:\\/\\/[^\\s$.?#].[^\\s]*$';
+    }
+    // Check if all examples are phone numbers
+    const phonePattern = /^[\+]?[\d\s\-\(\)]+$/;
+    if (examples.every(ex => phonePattern.test(ex))) {
+        return '^[\\+]?[\\d\\s\\-\\(\\)]+$';
+    }
+    // Check if all examples are numbers
+    if (examples.every(ex => /^\d+$/.test(ex))) {
+        return '^\\d+$';
+    }
+    // Check if all examples are alphanumeric
+    if (examples.every(ex => /^[a-zA-Z0-9]+$/.test(ex))) {
+        return '^[a-zA-Z0-9]+$';
+    }
+    // Find common prefix
+    let commonPrefix = examples[0];
+    for (const example of examples) {
+        let i = 0;
+        while (i < commonPrefix.length && i < example.length && commonPrefix[i] === example[i]) {
+            i++;
+        }
+        commonPrefix = commonPrefix.substring(0, i);
+    }
+    // Find common suffix
+    let commonSuffix = examples[0];
+    for (const example of examples) {
+        let i = 0;
+        while (i < commonSuffix.length && i < example.length &&
+            commonSuffix[commonSuffix.length - 1 - i] === example[example.length - 1 - i]) {
+            i++;
+        }
+        commonSuffix = commonSuffix.substring(commonSuffix.length - i);
+    }
+    // Escape special regex characters
+    const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    // Build pattern
+    let pattern = '';
+    if (commonPrefix.length > 0) {
+        pattern += escapeRegex(commonPrefix);
+    }
+    pattern += '.*';
+    if (commonSuffix.length > 0) {
+        pattern += escapeRegex(commonSuffix);
+    }
+    // If pattern is too generic, try to find character classes
+    if (pattern === '.*' || pattern === '') {
+        // Analyze character types used
+        const hasLetters = examples.some(ex => /[a-zA-Z]/.test(ex));
+        const hasDigits = examples.some(ex => /\d/.test(ex));
+        const hasSpecial = examples.some(ex => /[^a-zA-Z0-9]/.test(ex));
+        if (hasLetters && hasDigits && !hasSpecial) {
+            pattern = '^[a-zA-Z0-9]+$';
+        }
+        else if (hasLetters && !hasDigits && !hasSpecial) {
+            pattern = '^[a-zA-Z]+$';
+        }
+        else {
+            pattern = '^.+$';
+        }
+    }
+    return pattern;
+}
 function explainRegexPattern(pattern) {
     let explanation = 'Regex Pattern Analysis:\n\n';
     if (pattern.startsWith('^'))
@@ -185,6 +283,67 @@ function getRegexExplanationWebviewContent(pattern, explanation) {
                 <li><code>{n,m}</code> - Between n and m times</li>
             </ul>
         </div>
+    </body>
+    </html>
+    `;
+}
+function getRegexGenerationWebviewContent(examples, pattern) {
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Generated Regex Pattern</title>
+        <style>
+            body { font-family: Arial, sans-serif; padding: 20px; }
+            .pattern { font-family: monospace; background: #d4edda; padding: 15px; border-radius: 5px; font-size: 18px; font-weight: bold; border: 2px solid #28a745; }
+            .examples { background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 15px 0; }
+            .example-item { padding: 5px; margin: 5px 0; background: white; border-radius: 3px; font-family: monospace; }
+            .info { background: #fff3cd; padding: 15px; border-radius: 5px; margin: 15px 0; border: 1px solid #ffc107; }
+            .copy-button { 
+                background: #007bff; 
+                color: white; 
+                border: none; 
+                padding: 10px 20px; 
+                border-radius: 5px; 
+                cursor: pointer; 
+                font-size: 14px;
+                margin-top: 10px;
+            }
+            .copy-button:hover { background: #0056b3; }
+        </style>
+    </head>
+    <body>
+        <h2>✨ Generated Regex Pattern</h2>
+        
+        <h3>Your Examples:</h3>
+        <div class="examples">
+            ${examples.map(ex => `<div class="example-item">${ex}</div>`).join('')}
+        </div>
+        
+        <h3>Generated Pattern:</h3>
+        <div class="pattern" id="pattern">${pattern}</div>
+        <button class="copy-button" onclick="copyPattern()">📋 Copy Pattern</button>
+        
+        <div class="info">
+            <strong>ℹ️ Note:</strong> This is a basic pattern generated from your examples. 
+            You may need to refine it based on your specific requirements. 
+            The generator tries to identify common patterns like emails, URLs, phone numbers, 
+            or creates a pattern based on common prefixes, suffixes, and character types.
+        </div>
+        
+        <script>
+            function copyPattern() {
+                const pattern = document.getElementById('pattern').textContent;
+                navigator.clipboard.writeText(pattern).then(() => {
+                    const button = document.querySelector('.copy-button');
+                    button.textContent = '✅ Copied!';
+                    setTimeout(() => {
+                        button.textContent = '📋 Copy Pattern';
+                    }, 2000);
+                });
+            }
+        </script>
     </body>
     </html>
     `;
