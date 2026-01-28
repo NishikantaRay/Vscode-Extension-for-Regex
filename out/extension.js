@@ -113,7 +113,8 @@ function generateRegexFromExamples(examples) {
     }
     // Find common prefix
     let commonPrefix = examples[0];
-    for (const example of examples) {
+    for (let j = 1; j < examples.length; j++) {
+        const example = examples[j];
         let i = 0;
         while (i < commonPrefix.length && i < example.length && commonPrefix[i] === example[i]) {
             i++;
@@ -122,7 +123,8 @@ function generateRegexFromExamples(examples) {
     }
     // Find common suffix
     let commonSuffix = examples[0];
-    for (const example of examples) {
+    for (let j = 1; j < examples.length; j++) {
+        const example = examples[j];
         let i = 0;
         while (i < commonSuffix.length && i < example.length &&
             commonSuffix[commonSuffix.length - 1 - i] === example[example.length - 1 - i]) {
@@ -132,17 +134,37 @@ function generateRegexFromExamples(examples) {
     }
     // Escape special regex characters
     const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    // Build pattern
-    let pattern = '';
-    if (commonPrefix.length > 0) {
-        pattern += escapeRegex(commonPrefix);
+    // Build pattern with anchors
+    let pattern = '^';
+    // Check if prefix and suffix overlap
+    const prefixLength = commonPrefix.length;
+    const suffixLength = commonSuffix.length;
+    const minLength = Math.min(...examples.map(ex => ex.length));
+    if (prefixLength + suffixLength > minLength) {
+        // Overlapping - adjust to prevent issues
+        if (prefixLength > 0) {
+            pattern += escapeRegex(commonPrefix) + '.*$';
+        }
+        else if (suffixLength > 0) {
+            pattern += '.*' + escapeRegex(commonSuffix) + '$';
+        }
+        else {
+            pattern += '.+$';
+        }
     }
-    pattern += '.*';
-    if (commonSuffix.length > 0) {
-        pattern += escapeRegex(commonSuffix);
+    else {
+        // No overlap
+        if (prefixLength > 0) {
+            pattern += escapeRegex(commonPrefix);
+        }
+        pattern += '.*';
+        if (suffixLength > 0) {
+            pattern += escapeRegex(commonSuffix);
+        }
+        pattern += '$';
     }
     // If pattern is too generic, try to find character classes
-    if (pattern === '.*' || pattern === '') {
+    if (pattern === '^.*$' || pattern === '^.+$') {
         // Analyze character types used
         const hasLetters = examples.some(ex => /[a-zA-Z]/.test(ex));
         const hasDigits = examples.some(ex => /\d/.test(ex));
@@ -287,7 +309,17 @@ function getRegexExplanationWebviewContent(pattern, explanation) {
     </html>
     `;
 }
+function escapeHtml(text) {
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
 function getRegexGenerationWebviewContent(examples, pattern) {
+    const escapedExamples = examples.map(ex => escapeHtml(ex));
+    const escapedPattern = escapeHtml(pattern);
     return `
     <!DOCTYPE html>
     <html>
@@ -311,6 +343,7 @@ function getRegexGenerationWebviewContent(examples, pattern) {
                 margin-top: 10px;
             }
             .copy-button:hover { background: #0056b3; }
+            .error { color: #721c24; margin-top: 10px; }
         </style>
     </head>
     <body>
@@ -318,12 +351,13 @@ function getRegexGenerationWebviewContent(examples, pattern) {
         
         <h3>Your Examples:</h3>
         <div class="examples">
-            ${examples.map(ex => `<div class="example-item">${ex}</div>`).join('')}
+            ${escapedExamples.map(ex => `<div class="example-item">${ex}</div>`).join('')}
         </div>
         
         <h3>Generated Pattern:</h3>
-        <div class="pattern" id="pattern">${pattern}</div>
+        <div class="pattern" id="pattern">${escapedPattern}</div>
         <button class="copy-button" onclick="copyPattern()">📋 Copy Pattern</button>
+        <div class="error" id="error" style="display: none;"></div>
         
         <div class="info">
             <strong>ℹ️ Note:</strong> This is a basic pattern generated from your examples. 
@@ -341,6 +375,10 @@ function getRegexGenerationWebviewContent(examples, pattern) {
                     setTimeout(() => {
                         button.textContent = '📋 Copy Pattern';
                     }, 2000);
+                }).catch((err) => {
+                    const errorDiv = document.getElementById('error');
+                    errorDiv.textContent = 'Failed to copy: ' + err.message;
+                    errorDiv.style.display = 'block';
                 });
             }
         </script>
