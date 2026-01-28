@@ -69,7 +69,7 @@
         ],
         "description": "form"
     },
-    "Bootstrap5 email field":{
+    "Bootstrap5 email field": {
         "prefix": "!bs5-email",
         "body": [
             "<div class=\"mb-3\">",
@@ -79,7 +79,7 @@
         ],
         "description": "Email field"
     },
-    "Bootstrap5  Textarea":{
+    "Bootstrap5  Textarea": {
         "prefix": "!bs5-textarea",
         "body": [
             "<div class=\"mb-3\">",
@@ -89,16 +89,16 @@
         ],
         "description": "Text area"
     },
-    "Bootstrap5  lg sm inputbox":{
+    "Bootstrap5  lg sm inputbox": {
         "prefix": "!bs5-ex-inputbox",
         "body": [
             "<input class=\"form-control form-control-lg\" type=\"text\" placeholder=\".form-control-lg\" aria-label=\".form-control-lg example\">",
             "<input class=\"form-control\" type=\"text\" placeholder=\"Default input\" aria-label=\"default input example\">",
-            "<input class=\"form-control form-control-sm\" type=\"text\" placeholder=\".form-control-sm\" aria-label=\".form-control-sm example\">",
+            "<input class=\"form-control form-control-sm\" type=\"text\" placeholder=\".form-control-sm\" aria-label=\".form-control-sm example\">"
         ],
         "description": "Input box sm lg"
     },
-    "Bootstrap5  Disabled inputbox":{
+    "Bootstrap5  Disabled inputbox": {
         "prefix": "!bs5-Disabled-inputbox",
         "body": [
             "<input class=\"form-control\" type=\"text\" placeholder=\"Disabled input\" aria-label=\"Disabled input example\" disabled>",
@@ -106,7 +106,7 @@
         ],
         "description": "Disabled inputbox"
     },
-    "Bootstrap5 File input":{
+    "Bootstrap5 File input": {
         "prefix": "!bs5-File-input",
         "body": [
             "<div class=\"mb-3\">",
@@ -116,7 +116,7 @@
         ],
         "description": "File input"
     },
-    "Bootstrap5 Select option":{
+    "Bootstrap5 Select option": {
         "prefix": "!bs5-Select",
         "body": [
             "<select class=\"form-select\" aria-label=\"Default select example\">",
@@ -128,81 +128,81 @@
         ],
         "description": "Select option"
     },
-    "Bootstrap5 Check box":{
+    "Bootstrap5 Check box": {
         "prefix": "!bs5-Check",
         "body": [
             "<div class=\"form-check\">",
             "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckDefault\">",
             "<label class=\"form-check-label\" for=\"flexCheckDefault\">",
-             "   Default checkbox",
+            "   Default checkbox",
             "</label>",
             "</div>"
         ],
         "description": "Check box"
     },
-    "Bootstrap5 Radio button":{
+    "Bootstrap5 Radio button": {
         "prefix": "!bs5-Radio",
         "body": [
             "<div class=\"form-check\">",
             "<input class=\"form-check-input\" type=\"radio\" name=\"flexRadioDefault\" id=\"flexRadioDefault1\">",
             "<label class=\"form-check-label\" for=\"flexRadioDefault1\">",
-             "   Default radio",
+            "   Default radio",
             "</label>",
             "</div>",
             "<div class=\"form-check\">",
             "<input class=\"form-check-input\" type=\"radio\" name=\"flexRadioDefault\" id=\"flexRadioDefault2\" checked>",
             "<label class=\"form-check-label\" for=\"flexRadioDefault2\">",
-             "   Default checked radio",
+            "   Default checked radio",
             "</label>",
             "</div>"
         ],
         "description": "Radio button"
     },
-    "Bootstrap5 Form example 2 with grid":{
+    "Bootstrap5 Form example 2 with grid": {
         "prefix": "!bs5-Form-ex",
         "body": [
             "<form class=\"row g-3\">",
             "<div class=\"col-md-6\">",
-                "<label for=\"inputEmail4\" class=\"form-label\">Email</label>",
-                "<input type=\"email\" class=\"form-control\" id=\"inputEmail4\">",
+            "<label for=\"inputEmail4\" class=\"form-label\">Email</label>",
+            "<input type=\"email\" class=\"form-control\" id=\"inputEmail4\">",
             "</div>",
             "<div class=\"col-md-6\">",
-                "<label for=\"inputPassword4\" class=\"form-label\">Password</label>",
-                "<input type=\"password\" class=\"form-control\" id=\"inputPassword4\">",
+            "<label for=\"inputPassword4\" class=\"form-label\">Password</label>",
+            "<input type=\"password\" class=\"form-control\" id=\"inputPassword4\">",
             "</div>",
             "<div class=\"col-12\">",
-                "<label for=\"inputAddress\" class=\"form-label\">Address</label>",
-                "<input type=\"text\" class=\"form-control\" id=\"inputAddress\" placeholder=\"1234 Main St\">",
+            "<label for=\"inputAddress\" class=\"form-label\">Address</label>",
+            "<input type=\"text\" class=\"form-control\" id=\"inputAddress\" placeholder=\"1234 Main St\">",
             "</div>",
             "<div class=\"col-12\">",
-                "<label for=\"inputAddress2\" class=\"form-label\">Address 2</label>",
-                "<input type=\"text\" class=\"form-control\" id=\"inputAddress2\" placeholder=\"Apartment, studio, or floor\">",
+            "<label for=\"inputAddress2\" class=\"form-label\">Address 2</label>",
+            "<input type=\"text\" class=\"form-control\" id=\"inputAddress2\" placeholder=\"Apartment, studio, or floor\">",
             "</div>",
             "<div class=\"col-md-6\">",
-                "<label for=\"inputCity\" class=\"form-label\">City</label>",
-                "<input type=\"text\" class=\"form-control\" id=\"inputCity\">",
+            "<label for=\"inputCity\" class=\"form-label\">City</label>",
+            "<input type=\"text\" class=\"form-control\" id=\"inputCity\">",
             "</div>",
             "<div class=\"col-md-4\">",
-                "<label for=\"inputState\" class=\"form-label\">State</label>",
-                "<select id=\"inputState\" class=\"form-select\">",
-                "<option selected>Choose...</option>",
-                "<option>...</option>",
-                "</select>",
+            "<label for=\"inputState\" class=\"form-label\">State</label>",
+            "<select id=\"inputState\" class=\"form-select\">",
+            "<option selected>Choose...</option>",
+            "<option>...</option>",
+            "</select>",
             "</div>",
             "<div class=\"col-md-2\">",
-               " <label for=\"inputZip\" class=\"form-label\">Zip</label>",
-              "  <input type=\"text\" class=\"form-control\" id=\"inputZip\">",
+            " <label for=\"inputZip\" class=\"form-label\">Zip</label>",
+            "  <input type=\"text\" class=\"form-control\" id=\"inputZip\">",
             "</div>",
             "<div class=\"col-12\">",
-                "<div class=\"form-check\">",
-                "<input class=\"form-check-input\" type=\"checkbox\" id=\"gridCheck\">",
-                "<label class=\"form-check-label\" for=\"gridCheck\">",
-                    "Check me out",
-                "</label>",
-                "</div>",
+            "<div class=\"form-check\">",
+            "<input class=\"form-check-input\" type=\"checkbox\" id=\"gridCheck\">",
+            "<label class=\"form-check-label\" for=\"gridCheck\">",
+            "Check me out",
+            "</label>",
+            "</div>",
             "</div>",
             "<div class=\"col-12\">",
-                "<button type=\"submit\" class=\"btn btn-primary\">Sign in</button>",
+            "<button type=\"submit\" class=\"btn btn-primary\">Sign in</button>",
             "</div>",
             "</form>"
         ],
